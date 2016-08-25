@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Drills</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Notes</th>
+      <th>Sport</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @drills.each do |drill| %>
+      <tr>
+        <td><%= drill.name %></td>
+        <td><%= drill.notes %></td>
+        <td><%= drill.sport %></td>
+        <td><%= drill.user.username %></td>
+        <td><%= link_to 'Show', drill %></td>
+        <td><%= link_to 'Edit', edit_drill_path(drill) %></td>
+        <td><%= link_to 'Destroy', drill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Drill', new_drill_path %>

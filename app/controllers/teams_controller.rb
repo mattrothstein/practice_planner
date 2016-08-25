@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_action :require_login
   before_action :set_user
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   
@@ -57,7 +58,7 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
     respond_to do |format|
-      format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
+      format.html { redirect_to user_teams_path(@user.id), notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
