@@ -1,0 +1,32 @@
+<%= form_for([@practice, slot]) do |f| %>
+  <% if slot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(slot.errors.count, "error") %> prohibited this slot from being saved:</h2>
+
+      <ul>
+      <% slot.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= f.hidden_field :practice_id, value: @practice.id %>
+  
+  <div class="field">
+    <%= f.label :drill_id %>
+    <%= f.select :drill_id, current_user.drills.collect { |d| [d.name, d.id]}, {include_blank: true} %>
+  </div>
+  
+  <div class="field">
+    <%= f.label "How long will you be doing this drill?" %>
+    <%= f.number_field :length %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

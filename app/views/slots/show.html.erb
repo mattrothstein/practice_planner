@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Practice:</strong>
+  <%= @slot.practice %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @slot.length %>
+</p>
+
+<p>
+  <strong>Drill:</strong>
+  <%= @slot.drill %>
+</p>
+
+<%= link_to 'Edit', edit_slot_path(@slot) %> |
+<%= link_to 'Back', slots_path %>

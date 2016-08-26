@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Slots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Length</th>
+      <th>Drill</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slots.each do |slot| %>
+      <tr>
+        <td><%= slot.length %></td>
+        <td><%= current_user.drills.find(slot.drill_id).name %></td>
+        <td><%= link_to 'Show', practice_slot_path(@practice, slot) %></td>
+        <td><%= link_to 'Edit', edit_practice_slot_path(@practice, slot) %></td>
+        <td><%= link_to 'Destroy', practice_slot_path(@practice, slot), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slot', new_practice_slot_path(@practice) %>

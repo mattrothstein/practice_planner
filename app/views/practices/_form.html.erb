@@ -1,0 +1,44 @@
+<%= form_for(practice) do |f| %>
+  <% if practice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(practice.errors.count, "error") %> prohibited this practice from being saved:</h2>
+
+      <ul>
+      <% practice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :practice_name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :team_id %>
+    <%= f.select :team_id, current_user.teams.collect {|t| [ t.name.titleize, t.id ] }, { include_blank: true }  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.datetime_select :date, {:ampm => true} %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :length %>
+    <%= f.number_field :length %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_area :notes %>
+  </div>
+
+    <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

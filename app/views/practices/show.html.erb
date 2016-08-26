@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @practice.team %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @practice.date %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @practice.name %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @practice.notes %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @practice.length %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @practice.user %>
+</p>
+
+<%= link_to 'Edit', edit_practice_path(@practice) %> |
+<%= link_to 'Back', practices_path %> | 
+<%= link_to 'Add Drills', new_practice_slot_path(@practice)%>

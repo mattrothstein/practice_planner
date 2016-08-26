@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  date: 2016-08-25 23:31:36
+  name: MyString
+  notes: MyText
+  length: 1
+  user: one
+
+two:
+  team: two
+  date: 2016-08-25 23:31:36
+  name: MyString
+  notes: MyText
+  length: 1
+  user: two
