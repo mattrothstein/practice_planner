@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  layout false
   def new
   end
   
@@ -6,7 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(username: params[:username]).try(:authenticate, params[:password])
     if @user
       session[:user_id] = @user.id 
-      redirect_to users_path, notice: "Succesfully logged in"
+      redirect_to dashboard_path(), notice: "Succesfully logged in"
     else
       render action: 'new', alert: "Unable to login"
     end
