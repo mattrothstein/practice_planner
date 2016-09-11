@@ -43,7 +43,7 @@ class SlotsController < ApplicationController
   def update
     respond_to do |format|
       if @slot.update(slot_params)
-        format.html { redirect_to practice_slots(@practice.id), notice: 'Slot was successfully updated.' }
+        format.html { redirect_to practice_slots_path(@practice), notice: 'Slot was successfully updated.' }
         format.json { render :show, status: :ok, location: @slot }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class SlotsController < ApplicationController
   def destroy
     @slot.destroy
     respond_to do |format|
-      format.html { redirect_to practice_slots(@practice.id), notice: 'Slot was successfully destroyed.' }
+      format.html { redirect_to practice_slots_path(@practice), notice: 'Slot was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

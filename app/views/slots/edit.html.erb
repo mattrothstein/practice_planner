@@ -2,5 +2,5 @@
 
 <%= render 'form', slot: @slot %>
 
-<%= link_to 'Show', @slot %> |
+<%= link_to 'Show', practice_slot_path(@practice,@slot) %> |
 <%= link_to 'Back', practice_slots_path(@practice) %>

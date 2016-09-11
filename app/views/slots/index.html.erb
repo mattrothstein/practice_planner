@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Slots</h1>
+<h2><%=@practice.name.titleize%> on <%=@practice.date.strftime('%D')%></h2>
+<h4>Practice Length: <%=@practice.length%></h4>
+<h4>Time Remaining: <%=time_remaining(@practice)%></h4>
+<h3>Drills</h3>
 
 <table>
   <thead>
@@ -25,5 +28,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Slot', new_practice_slot_path(@practice) %>
+<% if time_remaining(@practice) > 0 %>
+  <%= link_to 'New Slot', new_practice_slot_path(@practice) %>
+<% end %>
