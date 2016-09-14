@@ -1,5 +1,12 @@
 class PracticesController < ApplicationController
-  before_action :set_practice, only: [:show, :edit, :update, :destroy]
+  before_action :set_practice, only: [:show, :edit, :update, :destroy, :sort]
+
+  def sort
+    params[:order].each do |key,value|
+      @practice.slots.find(value[:id]).update_attribute(:priority,value[:position])
+    end
+    render :nothing => true
+  end
 
   # GET /practices
   # GET /practices.json
