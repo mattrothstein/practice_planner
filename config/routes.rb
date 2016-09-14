@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :practices do
     resources :slots
   end
+  post 'practices/:id/practice_sort' => 'practices#sort'
   resources :drills
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
