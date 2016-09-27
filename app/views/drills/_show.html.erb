@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title"><%= @drill.name.titleize %></h4>
+    </div>
+    <div class="modal-body" >
+      <div class="container" >
+        <div class="row">
+          <div class="col-lg-8">
+            <p>
+              <strong>Notes:</strong>
+              <%= @drill.notes.humanize %>
+            </p>
+            
+            <p>
+              <strong>Sport:</strong>
+              <%= @drill.sport.titleize %>
+            </p>
+            
+            <p>
+              <strong>User:</strong>
+              <%= @drill.user.username.titleize %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+      <%= link_to 'Edit', edit_drill_path(@drill), class: "btn btn-sm btn-warning", style: "color:white;", remote: true %>
+    </div>
+  </div>
+</div>
+  
+
+  

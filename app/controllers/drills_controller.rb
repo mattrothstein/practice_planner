@@ -10,12 +10,15 @@ class DrillsController < ApplicationController
   end
   
   def my_drills
-  @drills = @user.drills  
+  @drills = @user.drills.paginate(:page => params[:page], :per_page => 3)  
   end
 
   # GET /drills/1
   # GET /drills/1.json
   def show
+    respond_to do |format|
+      format.js 
+    end
   end
 
   def copy_drill
@@ -30,6 +33,9 @@ class DrillsController < ApplicationController
 
   # GET /drills/1/edit
   def edit
+    respond_to do |format|
+      format.js 
+    end
   end
 
   # POST /drills
@@ -53,7 +59,7 @@ class DrillsController < ApplicationController
   def update
     respond_to do |format|
       if @drill.update(drill_params)
-        format.html { redirect_to @drill, notice: 'Drill was successfully updated.' }
+        format.html { redirect_to request.referrer, notice: 'Drill was successfully updated.' }
         format.json { render :show, status: :ok, location: @drill }
       else
         format.html { render :edit }
