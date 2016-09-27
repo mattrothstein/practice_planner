@@ -4,14 +4,18 @@
     <title>PracticePlanner</title>
     <%= csrf_meta_tags %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+
+
+
+   <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -27,23 +31,23 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
+        <li class="active"><%=link_to 'Dashboard', dashboard_path%></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Drills<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Your Drills</a></li>
-            <li><a href="#">All Drills</a></li>
+            <li><%=link_to "My Drills", my_drills_path%></li>
+            <li><%=link_to "All Drills", drills_path%></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Build a Drill</a></li>
+            <li><%=link_to "New Drill", new_drill_path%></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Practice Plans<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Your Practice Plans</a></li>
-            <li><a href="#">All Practice Plans</a></li>
+            <li><%=link_to "All Practices", practices_path%></li>
+            <li><%=link_to "My Practices", my_practices_path%></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Build a Practice Plan</a></li>
+            <li><%=link_to "New Practice", new_practice_path%></li>
           </ul>
         </li>
         
@@ -60,7 +64,7 @@
     </div><!-- /.navbar-collapse -->
       </div>
     </nav>
-    
+
     <%= yield %>
   </body>
 </html>

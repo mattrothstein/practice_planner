@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>All Practices</h1>
+<h1>My Practices</h1>
 
 <table>
   <thead>
@@ -25,7 +25,7 @@
         <td><%= practice.length %></td>
         <td><%= practice.user.username %></td>
         <td><%= link_to 'Show', practice %></td>
-        <td><%= link_to 'Copy and Customize Practice', copy_practice_path(practice) %></td>
+        <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
         <td><%= link_to 'Destroy', practice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

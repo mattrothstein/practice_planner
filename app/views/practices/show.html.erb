@@ -1,35 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Team:</strong>
-  <%= @practice.team %>
-</p>
+<h2><%=@practice.name.titleize%> on <%=@practice.date.strftime('%D')%></h2>
+<h4>Practice Length: <%=@practice.length%></h4>
+<h4>Time Remaining: <%=time_remaining(@practice)%></h4>
+<h3>Drills</h3>
 
-<p>
-  <strong>Date:</strong>
-  <%= @practice.date %>
-</p>
+<div class="row">
+  <div class="col-md-6 sortable">
+    <% @slots.each do |slot| %>
+    
+      <div class="panel panel-default" data-id="<%= slot.id %>" >
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= Drill.find(slot.drill_id).name %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="col-md-6"><h6><%= slot.length %> minutes</h6></div>
+          <div class="col-md-6">
+          <%= link_to 'Show', practice_slot_path(@practice, slot) %><br>
+          <%= link_to 'Edit', edit_practice_slot_path(@practice, slot) %><br>
+          <%= link_to 'Destroy', practice_slot_path(@practice, slot), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @practice.name %>
-</p>
-
-<p>
-  <strong>Notes:</strong>
-  <%= @practice.notes %>
-</p>
-
-<p>
-  <strong>Length:</strong>
-  <%= @practice.length %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @practice.user %>
-</p>
-
-<%= link_to 'Edit', edit_practice_path(@practice) %> |
-<%= link_to 'Back', practices_path %> | 
-<%= link_to 'Add Drills', new_practice_slot_path(@practice)%>
+<br>
+<% if time_remaining(@practice) > 0 %>
+  <%= link_to 'New Slot', new_practice_slot_path(@practice) %>
+<% end %>

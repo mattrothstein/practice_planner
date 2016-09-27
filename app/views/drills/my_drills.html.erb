@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>All Drills</h1>
+<h1>My Drills</h1>
 
 <table>
   <thead>
@@ -21,7 +21,8 @@
         <td><%= drill.sport %></td>
         <td><%= drill.user.username %></td>
         <td><%= link_to 'Show', drill %></td>
-        <td><%= link_to 'Copy Drill', copy_drill_path(drill) %></td>
+        <td><%= link_to 'Edit', edit_drill_path(drill) %></td>
+        <td><%= link_to 'Destroy', drill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

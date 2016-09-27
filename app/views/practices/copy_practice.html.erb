@@ -1,0 +1,37 @@
+<h1>Copy and Customize Practice</h1>
+
+<%= form_tag duplicate_practice_path(@practice) do %>
+
+  <div class="field">
+    <%= label_tag :practice_name %>
+    <%= text_field_tag :name, @copied_practice.name %>
+  </div>
+  
+  <div class="field">
+    <%= label_tag :team_id %>
+    <%= select_tag :team_id, options_from_collection_for_select(current_user.teams, :id, :name), { include_blank: true }  %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :date %>
+    <%= datetime_select :date, {:ampm => true} %>
+  </div>
+  
+  <div class="field">
+    <%= label_tag :length %>
+    <%= number_field_tag :length, @copied_practice.length %>
+  </div>
+  
+  <div class="field">
+    <%= label_tag :notes %>
+    <%= text_area_tag :notes, @copied_practice.notes %>
+  </div>
+    <%= hidden_field_tag :copied_practice, @copied_practice.id %>
+    <%= hidden_field_tag :user_id, current_user.id %>
+
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', practices_path %>

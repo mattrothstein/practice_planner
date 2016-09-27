@@ -1,7 +1,6 @@
 class DrillsController < ApplicationController
-  before_action :require_login
-  before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_drill, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:new, :create, :edit, :update, :destroy, :my_drills, :copy_drill]
+  before_action :set_drill, only: [:show, :edit, :update, :destroy, :copy_drill]
   before_action :authorize, only: [:edit,:update,:destroy]
 
   # GET /drills
@@ -9,10 +8,19 @@ class DrillsController < ApplicationController
   def index
     @drills = Drill.all
   end
+  
+  def my_drills
+  @drills = @user.drills  
+  end
 
   # GET /drills/1
   # GET /drills/1.json
   def show
+  end
+
+  def copy_drill
+    @copied_drill = Drill.find(params[:id])
+    @drill = current_user.drills.new(@copied_drill.attributes)
   end
 
   # GET /drills/new
@@ -31,10 +39,10 @@ class DrillsController < ApplicationController
 
     respond_to do |format|
       if @drill.save
-        format.html { redirect_to @drill, notice: 'Drill was successfully created.' }
+        format.html { redirect_to my_drills_path, notice: 'Drill was successfully created.' }
         format.json { render :show, status: :created, location: @drill }
       else
-        format.html { render :new }
+        format.html { render :new , notice: 'Unable to create drill.'}
         format.json { render json: @drill.errors, status: :unprocessable_entity }
       end
     end

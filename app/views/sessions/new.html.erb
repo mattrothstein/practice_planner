@@ -1,14 +1,30 @@
-<h1>Log in</h1>
-<%= form_tag sessions_path do %>
-<div class="field">
-<%= label_tag :username %>
-<%= text_field_tag :username %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <%= form_tag sessions_path, class: "form-horizontal" do %>
+      <fieldset>
+        <legend>Log In</legend>
+        <div class="form-group">
+          <%= label_tag :username, nil, class:"col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= text_field_tag :username, "" ,class: "form-control", placeholder: "Username" %>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <%= label_tag :password, nil, class: "col-lg-2 control-label" %>    
+          <div class="col-lg-10">      
+            <%= password_field_tag :password, "" ,class: "form-control", placeholder: "password" %>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">    
+            <%= submit_tag 'Log in', class:"btn btn-primary" %>
+          </div>
+        </div>
+      </fieldset>
+      <% end %>
+    </div>
+  </div>
 </div>
-<div class="field">
-<%= label_tag :password %>
-<%= password_field_tag :password %>
-</div>
-<div class="action">
-<%= submit_tag 'Log in' %>
-</div>
-<% end %>
