@@ -1,32 +1,37 @@
 <p id="notice"><%= notice %></p>
 
 <h1>All Drills</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Notes</th>
-      <th>Sport</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @drills.each do |drill| %>
-      <tr>
-        <td><%= drill.name %></td>
-        <td><%= drill.notes %></td>
-        <td><%= drill.sport %></td>
-        <td><%= drill.user.username %></td>
-        <td><%= link_to 'Show', drill %></td>
-        <td><%= link_to 'Copy Drill', copy_drill_path(drill) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="cotainer">
+  <div class="row">
+    <div class="col-lg-2">
+      <div class="list-group">
+        <a href="#" class="list-group-item active">Search My Drills</a>
+        <a href="#" class="list-group-item">New Drill</a>
+        <a href="#" class="list-group-item">Search by Sport</a>
+        <a href="#" class="list-group-item">Search All Drills</a>
+      </div>
+    </div>
+    <div class="col-lg-6 col-lg-offset-1">
+      
+      <% @drills.each do |drill| %>
+      <%=render partial: 'drill_card', locals:{drill: drill}%>
+      <% end %>
+      
+      <%= link_to new_drill_path , class: "btn-floating btn-large red" do %>
+        <i class="fa fa-bolt"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
 <br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-offset-4 col-lg-4">
+      <%= will_paginate @drills %>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Drill', new_drill_path %>
+<div class="modal" id="drill_modal">
+  
+</div>

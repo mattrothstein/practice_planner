@@ -1,0 +1,28 @@
+
+<!--Card-->
+<div class="card" style="margin:10px;width:400px;">
+  
+  <!--Card image-->
+  <div class="view overlay hm-white-slight">
+    <img src="http://lorempixel.com/400/200/sports/" class="img-fluid" alt="">
+    <a href="#">
+      <div class="mask"></div>
+    </a>
+  </div>
+  <!--/.Card image-->
+  
+  <!--Card content-->
+  <div class="card-block" >
+    <!--Title-->
+    <h3 class="card-title" style="margin-left:15px;"><%= drill.name.titleize %></h3>
+    <!--Text-->
+    <p class="card-text"><%= drill.notes.humanize %><br><%= drill.sport.titleize %></p>
+    <a href="/drills/<%=drill.id%>" data-toggle="modal" data-target="#drill_modal" class="btn btn-primary" style="margin-left:15px;margin-bottom:15px;" data-remote="true">VIEW</a>
+    <% if params[:action] == "index" %>
+      <%= link_to 'Copy Drill', copy_drill_path(drill), class: "btn btn-success", style:"margin-bottom:15px;" %>
+    <% end %>
+  </div>
+  <!--/.Card content-->
+  
+</div>
+<!--/.Card-->

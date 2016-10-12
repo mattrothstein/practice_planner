@@ -6,7 +6,7 @@ class DrillsController < ApplicationController
   # GET /drills
   # GET /drills.json
   def index
-    @drills = Drill.all
+    @drills = Drill.all.paginate(:page => params[:page], :per_page => 10)
   end
   
   def my_drills

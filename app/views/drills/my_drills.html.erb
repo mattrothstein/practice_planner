@@ -12,29 +12,23 @@
       </div>
     </div>
     <div class="col-lg-6 col-lg-offset-1">
-      <div class="list-group">
-        <% @drills.each do |drill| %>
-        <a href="/drills/<%=drill.id%>" data-toggle="modal" data-target="#drill_modal" class="list-group-item" style="height:150px !important;margin: 5px;" data-remote="true">
-          <h4 class="list-group-item-heading"><%= drill.name.titleize %></h4>
-          <p class="list-group-item-text"><%= drill.notes.humanize %></p>
-          <p class="list-group-item-text"><span class="col-lg-3 "><span class="label label-info"><%= drill.sport.titleize %></span></span>
-            <span class="col-lg-3"> - </span><span class="col-lg-3"> - </span>
-            <span class="col-lg-3 text-right"><%= drill.user.username.titleize %></span></p>
-          </a>
-          <% end %>
-        </div>
-      </div>
+      
+      <% @drills.each do |drill| %>
+      <%=render partial: 'drill_card', locals:{drill: drill}%>
+      <% end %>
+      
     </div>
   </div>
-  <br>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-offset-4 col-lg-4">
-        <%= will_paginate @drills %>
-      </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-offset-4 col-lg-4">
+      <%= will_paginate @drills %>
     </div>
   </div>
+</div>
+
+<div class="modal" id="drill_modal">
   
-  <div class="modal" id="drill_modal">
-    
-  </div>
+</div>
