@@ -2,7 +2,7 @@ class DrillsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy, :my_drills, :copy_drill]
   before_action :set_drill, only: [:show, :edit, :update, :destroy, :copy_drill]
   before_action :authorize, only: [:edit,:update,:destroy]
-
+  
   # GET /drills
   # GET /drills.json
   def index
@@ -10,13 +10,15 @@ class DrillsController < ApplicationController
   end
   
   def my_drills
-  @drills = @user.drills.paginate(:page => params[:page], :per_page => 3)  
+    @drills = @user.drills.paginate(:page => params[:page], :per_page => 3)  
   end
 
   # GET /drills/1
   # GET /drills/1.json
   def show
+    @coords = @drill.drill_image_coordinates
     respond_to do |format|
+      format.html
       format.js 
     end
   end
@@ -78,6 +80,19 @@ class DrillsController < ApplicationController
     end
   end
 
+  def set_coordinates
+      @drill = Drill.find(params[:drill_id])
+      x = params[:coordinates][0]
+      y = params[:coordinates][1]
+      @drill.drill_image_coordinates.create(marker: params[:marker], x: x, y: y)
+      @drill.save
+      if request.xhr?
+        render json: @drill.drill_image_coordinates
+      else
+        redirect_to @drill, notice: 'Coordinates succesfully stored.'
+      end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_drill

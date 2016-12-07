@@ -1,0 +1,31 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_for([@practice, @slot]) do |f| %>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">Edit <%= Drill.find(@slot.drill_id).name.titleize %></h4>
+    </div>
+    <div class="modal-body" >
+      <div class="container" >
+        <div class="row">
+          <div class="col-lg-8">
+            <%= f.hidden_field :practice_id, value: @practice.id %>
+            <fieldset>
+              <div class="row">
+                <div class="form-group">
+                  <%= f.label "How long will you be doing this drill?", class:"control-label" %><br><br>
+                  <%= f.number_field :length, class: "form-control  word-wrap" , style: "width: 50%;"%>  
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= f.submit class:"btn btn-sm btn-success" %>
+      <% end %>
+      <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>

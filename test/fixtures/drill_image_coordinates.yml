@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  drill: one
+  x: MyString
+  'y': MyString
+  marker: MyString
+
+two:
+  drill: two
+  x: MyString
+  'y': MyString
+  marker: MyString

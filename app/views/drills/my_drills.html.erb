@@ -14,7 +14,7 @@
     <div class="col-lg-6 col-lg-offset-1">
       
       <% @drills.each do |drill| %>
-      <%=render partial: 'drill_card', locals:{drill: drill}%>
+        <%=render partial: 'drill_card', locals:{drill: drill}%>
       <% end %>
       
     </div>
@@ -32,3 +32,13 @@
 <div class="modal" id="drill_modal">
   
 </div>
+<div id="drill_modal_2" >
+  
+</div>
+<script>
+  $('.modal').on('hidden.bs.modal', function (e) {
+      if($('.modal').hasClass('in')) {
+      $('body').addClass('modal-open');
+      }    
+  });
+</script>

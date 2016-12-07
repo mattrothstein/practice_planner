@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914045048) do
+ActiveRecord::Schema.define(version: 20161129081616) do
+
+  create_table "drill_image_coordinates", force: :cascade do |t|
+    t.integer  "drill_id"
+    t.string   "x"
+    t.string   "y"
+    t.string   "marker"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drill_id"], name: "index_drill_image_coordinates_on_drill_id"
+  end
 
   create_table "drills", force: :cascade do |t|
     t.string   "name"

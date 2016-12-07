@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   resources :practices do
     resources :slots
   end
-  resources :drills
+  resources :drills  
+  post 'set_coordinates' => 'drills#set_coordinates'
   get 'my_drills' => 'drills#my_drills', as: 'my_drills'
   get 'drills/:id/copy_drill' => 'drills#copy_drill', as: 'copy_drill'
   

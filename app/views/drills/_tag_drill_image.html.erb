@@ -1,0 +1,100 @@
+<div class="modal fade" id="coordinate_modal" style="z-index:99999;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-info">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= @drill.name.titleize %></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <br>
+          Who will be standing here?<br>
+          <input id="marker" name="marker" value="" type="text" >
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-done" class="btn btn-xs btn-primary">Save changes</button>
+        <button type="button" class="btn btn-xs btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<style>
+  .modal-header-info {
+      color:#fff;
+      padding:9px 15px;
+      border-bottom:1px solid #eee;
+      background-color: #5bc0de;
+      -webkit-border-top-left-radius: 5px;
+      -webkit-border-top-right-radius: 5px;
+      -moz-border-radius-topleft: 5px;
+      -moz-border-radius-topright: 5px;
+       border-top-left-radius: 5px;
+       border-top-right-radius: 5px;
+  }
+</style>
+<script>
+  var taggd, x, y;
+  var options = {
+  align: {
+  x: 'center',
+  y: 'center'
+  },
+  offset: {
+  left: 0,
+  top: 30
+  },
+  handlers: { 
+  click: 'toggle'
+  }
+  };
+  $(document).ready(function () {
+
+  var vballPic = $("#vball_ct_<%= @drill.id %>");
+  vballPic.click(function (e) {
+  var offset = $(this).offset();
+  x = ((e.pageX - offset.left) / $(this).width());
+  y = ((e.pageY - offset.top) / $(this).height());
+  $("#coordinate_modal").modal("show");
+  });
+
+  $("#btn-done").on("click", function (e) {
+  e.preventDefault();      
+  var myKeyVals = { drill_id : <%= @drill.id %> , marker : $("#marker").val(), coordinates : [x , y] }
+
+    $.ajax({
+      url: "/set_coordinates",
+      type: 'POST',
+      data: myKeyVals,
+      dataType: "json",
+      success: function (res) {
+        console.log(res);
+        $.each(res, function (index, value) {
+          console.log(value);
+          taggd.addData({x: value["x"], y: value["y"], text: value["marker"] });
+        });
+        $("#coordinate_modal").modal("hide");
+      }
+    });
+
+  });
+
+
+  //  Load image using Image object. This is necessary for chrome browser.
+   photo = document.getElementById('vball_ct_<%= @drill.id %>');
+   img = new Image();
+  img.addEventListener('load', function () {
+  taggd = $(photo).taggd(options, []);
+  <% @drill.drill_image_coordinates.each do |c| %>
+    taggd.addData({x: "<%=c.x%>" , y: "<%=c.y%>", text: "<%=c.marker%>" });
+  <% end %>
+  });
+  img.src = "<%= (image_path 'volleyball_court').to_s %>" ;
+  photo.src = img.src;
+  //  End
+
+  });
+
+</script>

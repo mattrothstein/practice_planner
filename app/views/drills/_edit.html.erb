@@ -1,4 +1,6 @@
-<div class="modal-dialog">
+<script>tinymce.init({ selector:'textarea' });</script>
+
+<div class="modal-dialog modal-lg">
   <div class="modal-content">
     <%= form_for(drill) do |f| %>
     <div class="modal-header">
@@ -33,18 +35,11 @@
                 <div class="form-group">
                   <%= f.label :notes, class:"col-lg-2 control-label" %>
                   <div class="col-lg-6">
-                    <%= f.text_area :notes, class: "md-textarea" %>
+                    <%= f.text_area :notes %>
                   </div>
                 </div>
                 <div style="clear:both"></div>
-                <br>
-                <div class="form-group">
-                  <%= f.label :sport, class:"col-lg-2 control-label" %>
-                  <div class="col-lg-6">
-                    <%= f.text_field :sport, class: "form-control" %>
-                  </div>
-                </div>
-                <div style="clear:both"></div>
+
               </fieldset>
             <%= f.hidden_field :user_id, value: @user.id %>
           </div>
@@ -52,8 +47,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
         <%= f.submit class:"btn btn-sm btn-success" %>
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
     <% end %>
     </div>
   </div>
