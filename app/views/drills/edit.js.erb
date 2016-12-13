@@ -1,3 +1,2 @@
-$('#drill_modal').html(
-  "<%= j render(partial: 'edit', locals: { drill: @drill}) %>"
-);
+$('#drill_modal').html("<%= j render(partial: 'edit', locals: { drill: @drill}) %>");
+$('#drill_modal_2').html("<%= j render(partial: 'tag_drill_image', locals:{drill: @drill})%>");

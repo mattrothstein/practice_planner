@@ -1,4 +1,4 @@
-<script>tinymce.init({ selector:'textarea' });</script>
+<script>tinymce.init({ selector:'textarea', height : "480" });</script>
 
 <div class="modal-dialog modal-lg">
   <div class="modal-content">
@@ -8,49 +8,54 @@
       <h4 class="modal-title">Edit <%= drill.name.titleize %></h4>
     </div>
     <div class="modal-body" >
-      <div class="container" >
+      <div class="container col-lg-12" >
         <div class="row">
-          <div class="col-lg-8">
-            
+          <br>
+          <div style="clear:both"></div>
+          <div class="col-md-6"  >
+            <div style="border: solid 1px black;">
+              <img  src="<%=image_path "volleyball_court"%>" id="vball_ct_<%=@drill.id%>"/>
+            </div>
+          </div>
+          <div class="col-md-6">
               <% if drill.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(drill.errors.count, "error") %> prohibited this drill from being saved:</h2>
+              <div id="error_explanation">
+                <h2><%= pluralize(drill.errors.count, "error") %> prohibited this drill from being saved:</h2>
 
-                  <ul>
+                <ul>
                   <% drill.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
+                  <li><%= message %></li>
                   <% end %>
-                  </ul>
-                </div>
+                </ul>
+              </div>
               <% end %>
-              <fieldset>
+
                 <div class="form-group">
-                  <%= f.label :name, class:"col-lg-2 control-label" %>
-                  <div class="col-lg-6">
+                  <%= f.label :name, class:" control-label" %>
+                  <div class="">
                     <%= f.text_field :name, class: "form-control" %>
                   </div>
                 </div>
                 <div style="clear:both"></div>
                 <br>
                 <div class="form-group">
-                  <%= f.label :notes, class:"col-lg-2 control-label" %>
-                  <div class="col-lg-6">
+                  <%= f.label :notes, class:"control-label" %>
+                  <div class="">
                     <%= f.text_area :notes %>
                   </div>
                 </div>
                 <div style="clear:both"></div>
-
-              </fieldset>
-            <%= f.hidden_field :user_id, value: @user.id %>
-          </div>
+              <%= f.hidden_field :user_id, value: @user.id %>
+            </div>
+            <br>
         </div>
       </div>
     </div>
+    <div style="clear:both"></div>
     <div class="modal-footer">
-        <%= f.submit class:"btn btn-sm btn-success" %>
-        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
-    <% end %>
+      <%= f.submit class:"btn btn-sm btn-success" %>
+      <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+      <% end %>
     </div>
   </div>
 </div>
-  

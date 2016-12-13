@@ -1,106 +1,103 @@
 <%= @drill.name.titleize %>
 
-            <p class="word-wrap">
-              <strong>Notes:</strong>
-              <%= @drill.notes.humanize %>
-            </p>
-            
-            <p>
-              <strong>User:</strong>
-              <%= @drill.user.username.titleize %>
-            </p>
-            
-      <%=image_tag "volleyball_court", id:"vball_ct_#{@drill.id}"%><br><br>
-      <%= link_to 'Edit', edit_drill_path(@drill), class: "btn btn-sm btn-warning", style: "color:white;", remote: true %>
+<p class="word-wrap">
+  <strong>Notes:</strong>
+  <%= @drill.notes.humanize %>
+</p>
 
-      <div class="modal fade" id="coordinate_modal">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title"><%= @drill.name.titleize %></h4>
-            </div>
-            <div class="modal-body">
-              <form>
-                <br>
-                Who will be standing here?<br>
-                <input id="marker" name="marker" value="" type="text" >
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="btn-done" class="btn btn-xs btn-primary">Save changes</button>
-              <button type="button" class="btn btn-xs btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-      
+<p>
+  <strong>User:</strong>
+  <%= @drill.user.username.titleize %>
+</p>
+
+<%=image_tag "volleyball_court", id:"vball_ct_#{@drill.id}"%><br><br>
+<%= link_to 'Edit', edit_drill_path(@drill), class: "btn btn-sm btn-warning", style: "color:white;", remote: true %>
+
+<div class="modal fade" id="coordinate_modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= @drill.name.titleize %></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <br>
+          Who will be standing here?<br>
+          <input id="marker" name="marker" value="" type="text" >
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-done" class="btn btn-xs btn-primary">Save changes</button>
+        <button type="button" class="btn btn-xs btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
-  var taggd, x, y;
-  var options = {
-    align: {
-      x: 'center',
-      y: 'center'
-    },
-    offset: {
-      left: 0,
-      top: 30
-    },
-    handlers: { 
-      click: 'toggle'
-    }
-  };
-  $(document).ready(function () {
-    
-  
-    var vballPic = $("#vball_ct_<%= @drill.id %>");
-    vballPic.click(function (e) {
-      var offset = $(this).offset();
-      x = ((e.pageX - offset.left) / $(this).width());
-      y = ((e.pageY - offset.top) / $(this).height());
-      $("#coordinate_modal").modal("show");
-    });
-    
-    $("#btn-done").on("click", function (e) {
-      e.preventDefault();      
-      var myKeyVals = { drill_id : <%= @drill.id %> , marker : $("#marker").val(), coordinates : [x , y] }
-      
-        $.ajax({
-          url: "/set_coordinates",
-          type: 'POST',
-          data: myKeyVals,
-          dataType: "json",
-          success: function (res) {
-            console.log(res);
-            $.each(res, function (index, value) {
-              console.log(value);
-              taggd.addData({x: value["x"], y: value["y"], text: value["marker"] });
-            });
-            $("#coordinate_modal").modal("hide");
-          }
+var taggd, x, y;
+var options = {
+  align: {
+    x: 'center',
+    y: 'center'
+  },
+  offset: {
+    left: 0,
+    top: 30
+  },
+  handlers: {
+    click: 'toggle'
+  }
+};
+$(document).ready(function () {
+
+
+  var vballPic = $("#vball_ct_<%= @drill.id %>");
+  vballPic.click(function (e) {
+    var offset = $(this).offset();
+    x = ((e.pageX - offset.left) / $(this).width());
+    y = ((e.pageY - offset.top) / $(this).height());
+    $("#coordinate_modal").modal("show");
+  });
+
+  $("#btn-done").on("click", function (e) {
+    e.preventDefault();
+    var myKeyVals = { drill_id : <%= @drill.id %> , marker : $("#marker").val(), coordinates : [x , y] }
+
+    $.ajax({
+      url: "/set_coordinates",
+      type: 'POST',
+      data: myKeyVals,
+      dataType: "json",
+      success: function (res) {
+        console.log(res);
+        $.each(res, function (index, value) {
+          console.log(value);
+          taggd.addData({x: value["x"], y: value["y"], text: value["marker"] });
         });
+        $("#coordinate_modal").modal("hide");
+      }
+    });
 
   });
 
-  
+
   //  Load image using Image object. This is necessary for chrome browser.
   var photo = document.getElementById('vball_ct_<%= @drill.id %>');
   var img = new Image();
   img.addEventListener('load', function () {
     taggd = $(photo).taggd(options, []);
     <% @drill.drill_image_coordinates.each do |c| %>
-      taggd.addData({x: "<%=c.x%>" , y: "<%=c.y%>", text: "<%=c.marker%>" });
+    taggd.addData({x: "<%=c.x%>" , y: "<%=c.y%>", text: "<%=c.marker.titleize%>" });
     <% end %>
   });
   img.src = "<%= (image_path 'volleyball_court').to_s %>" ;
   photo.src = img.src;
   //  End
-  
-});
-  
-  </script>
-  
 
-  
+});
+
+</script>

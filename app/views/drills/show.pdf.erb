@@ -1,0 +1,52 @@
+<style type="text/css">
+	.page-break {
+		display:block;
+		clear:both;
+		page-break-after:always;
+	}
+</style>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <%= @drill.name.titleize %>
+  </div>
+  <div class="panel-body">
+	  <div style="display:inline-block; width:40%; margin-right:5%;vertical-align:top !important;"><%=wicked_pdf_image_tag "volleyball_court", id:"vball_ct_#{@drill.id}", width: "300px"%></div>
+    <div style="display:inline-block; width:40%;margin-left:5%;"><p class="word-wrap"><strong>Notes:</strong><%= @drill.notes.html_safe %></p></div>
+  </div>
+</div>
+<!-- <div class="page-break"></div> -->
+
+<script>
+  var taggd, x, y;
+  var options = {
+    align: {
+    x: 'center',
+    y: 'center'
+    },
+    offset: {
+    left: 0,
+    top: 30
+    },
+    handlers: {
+    click: 'toggle'
+    }
+  };
+  $(document).ready(function () {
+
+  //  Load image using Image object. This is necessary for chrome browser.
+   photo = document.getElementById('vball_ct_<%= @drill.id %>');
+   img = new Image();
+  img.addEventListener('load', function () {
+  taggd = $(photo).taggd(options, []);
+  <% @drill.drill_image_coordinates.each do |c| %>
+    taggd.addData({x: "<%=c.x%>" , y: "<%=c.y%>", text: "<%=c.marker.titleize%>" });
+  <% end %>
+  taggd.show();
+  });
+  img.src = "http://localhost:3000/assets/volleyball_court-e267a89d1c30fccb37a43e041e511135dfb762b17810adc0572e1f94c0fd3a14.png" ;
+  photo.src = img.src;
+  //  End
+
+  });
+
+</script>

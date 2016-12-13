@@ -2,15 +2,15 @@ class DrillsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy, :my_drills, :copy_drill]
   before_action :set_drill, only: [:show, :edit, :update, :destroy, :copy_drill]
   before_action :authorize, only: [:edit,:update,:destroy]
-  
+
   # GET /drills
   # GET /drills.json
   def index
     @drills = Drill.all.paginate(:page => params[:page], :per_page => 10)
   end
-  
+
   def my_drills
-    @drills = @user.drills.paginate(:page => params[:page], :per_page => 3)  
+    @drills = @user.drills.paginate(:page => params[:page], :per_page => 3)
   end
 
   # GET /drills/1
@@ -19,7 +19,8 @@ class DrillsController < ApplicationController
     @coords = @drill.drill_image_coordinates
     respond_to do |format|
       format.html
-      format.js 
+      format.js
+      format.pdf {render :pdf => "show", :layout => 'pdf.html.erb'}
     end
   end
 
@@ -36,7 +37,7 @@ class DrillsController < ApplicationController
   # GET /drills/1/edit
   def edit
     respond_to do |format|
-      format.js 
+      format.js
     end
   end
 
@@ -92,17 +93,17 @@ class DrillsController < ApplicationController
         redirect_to @drill, notice: 'Coordinates succesfully stored.'
       end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_drill
       @drill = Drill.find(params[:id])
     end
-    
+
     def set_user
       @user = current_user
     end
-    
+
     def authorize
       if @user != @drill.user
         redirect_to drills_path(), notice: "You are not authorized to make changes to this drill."
