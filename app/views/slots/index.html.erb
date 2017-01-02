@@ -1,32 +1,47 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+  <h2><%=@practice.name.titleize%></h2>
+  <h4>Practice Date: <%=@practice.date.strftime('%D')%></h4>
+  <h4>Practice Length: <%=minutes_to_hours(@practice.length)%></h4>
+  <h3>Drills</h3>
 
-<h2><%=@practice.name.titleize%> on <%=@practice.date.strftime('%D')%></h2>
-<h4>Practice Length: <%=@practice.length%></h4>
-<h4>Time Remaining: <%=time_remaining(@practice)%></h4>
-<h3>Drills</h3>
+  <div class="row">
+    <div class="col-md-10 sortable" style="list-style-type: none;">
+      <% @slots.each do |slot| %>
+      <% drill = Drill.find(slot.drill_id) %>
 
-<div class="row">
-  <div class="col-md-6 sortable">
-    <% @slots.each do |slot| %>
-    
-      <div class="panel panel-default" data-id="<%= slot.id %>" >
+      <!--Card-->
+      <div class="panel-primary panel" data-id="<%= slot.id %>">
         <div class="panel-heading">
-          <h3 class="panel-title"><%= current_user.drills.find(slot.drill_id).name %></h3>
+          <h3 class="panel-title"><span class="pull-left"><%= drill.name.titleize %></span><span class="pull-right"><%= slot.length %> minutes  </span></h3>
+          <div style="clear:both;"></div>
         </div>
-        <div class="panel-body">
-          <div class="col-md-6"><h6><%= slot.length %> minutes</h6></div>
-          <div class="col-md-6">
-          <%= link_to 'Show', practice_slot_path(@practice, slot) %><br>
-          <%= link_to 'Edit', edit_practice_slot_path(@practice, slot) %><br>
-          <%= link_to 'Destroy', practice_slot_path(@practice, slot), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+        <!--Card content-->
+        <div class="panel-body" >
+          <!--Title-->
+
+          <!--Text-->
+          <p class="card-text"><%= drill.notes.html_safe %></p>
+          <div class="">
+            <a href="/drills/<%=drill.id%>" data-toggle="modal" data-target="#drill_modal" class="btn btn-xs btn-primary"  data-remote="true">VIEW</a>
+            <%= link_to 'Adjust Length', edit_practice_slot_path(@practice, slot), 'data-toggle' => "modal", 'data-target' => "#drill_modal", class: "btn btn-xs btn-warning", "data-remote" => true %>
+            <%= link_to 'Delete', practice_slot_path(@practice, slot), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger", "data-remote" => true  %>
           </div>
         </div>
+        <!--/.Card content-->
+
       </div>
-    <% end %>
+      <!--/.Card-->
+      <% end %>
+    </div>
   </div>
+
+  <br>
+
+    <%= link_to 'New Slot', new_practice_slot_path(@practice), class: "btn btn-md btn-info" %>
 </div>
 
-<br>
-<% if time_remaining(@practice) > 0 %>
-  <%= link_to 'New Slot', new_practice_slot_path(@practice) %>
-<% end %>
+<div class="modal" id="drill_modal">
+
+</div>
